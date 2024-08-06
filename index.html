@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+        integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="flex justify-center items-center h-screen bg-teal-400">
+        <div id="tasks" class="rounded-lg w-72 flex flex-col bg-yellow-300">
+            <form id="form">
+                <input class="w-full rounded-t-lg px-2" type="text" value="" name="new_task" id="new_task"
+                    placeholder="Enter your task">
+            </form>
+        </div>
+    </div>
+    <script>
+        const tasks = [{ id: 1, task: "Test 123", isDone: false }, { id: 2, task: "Test 345", isDone: true }]
+        let lastId = tasks[tasks.length - 1].id
+
+        const input = document.getElementById("new_task")
+        tasks.forEach(createElement)
+        const form = document.getElementById("form")
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            lastId += 1
+            new_task = { id: lastId, task: input.value, isDone: false }
+            tasks.push(new_task)
+            input.value = ''
+            createElement(new_task);
+        });
+        function createElement({ id, task, isDone }) {
+            const div = document.createElement('div');
+            div.className = "px-2 flex border-lime-600 border-t border-dashed justify-between";
+            div.id = `task${id}`;
+            div.innerText = task;
+
+            const icon1 = document.createElement('i');
+            icon1.className = `fas fa-check-square ${isDone ? "text-green-500" : "text-gray-500"}`;
+
+            const icon2 = document.createElement('i');
+            icon2.className = "fas fa-trash text-red-500";
+
+            const div2 = document.createElement('div');
+            div2.className = "flex justify-center gap-2 text-sm items-center text-center";
+
+            div2.append(icon1, icon2);
+            div.appendChild(div2);
+            document.getElementById('tasks').appendChild(div);
+        }
+
+    </script>
+</body>
+
+</html>
